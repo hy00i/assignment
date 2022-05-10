@@ -2,31 +2,50 @@ let users;
 
 class User {
 	static async injectDB(conn) {
-		users = await conn.db("my-database-name").collection("users")
+		users = await conn.db("Visitor-management-System").collection("users")
 	}
 
 	static async register(username, password) {
 		// TODO: Check if username exists
-	    let user = await users.findOne({ "username": username });
-		if (user) {
-			return 'duplicate user name';
-		} else {
-		// TODO: Hash password
-        const hashpassword = await bcrypt.hash(password, 10);
-		// TODO: Save user to database
-        await users.insertOne({"username": username, "password": hashpassword});
-		return "user created";
-		}
+		return users.findOne({
+			'username':username
+		}).then(async user=>{
+			if (user) {
+				if(user.username==username){
+					return "the Username is already exist";
+				}
+				
+			} else {
+
+			await users.insertOne({
+				"username": username, 
+				"password": password,
+			})
+			return "user created";
+			}
+		})
+
 	}
 
 	static async login(username, password) {
-		// TODO: Check if username exists
+		return users.findOne({
+			'username':username
+		}).then(async user=>{
+			if(user){
+				if(user.password!=password){
+					return "invalid password";
+				}
+				else{
+					return "login successful";
+				}	
+			}
+			else{
+				return "invalid username";
+			}
+			
+		})
 
-		// TODO: Validate password
-
-		// TODO: Return user object
-		return;
 	}
 }
-
-module.exports = User;
+ 
+module.exports= User;
