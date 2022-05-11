@@ -25,7 +25,8 @@ class User {
 			'username':Username
 		}).then(async user=>{
 			if(user){
-				if(user.password==Password){
+				const match = await bcrypt.compare(password, user.password); 
+				if(match){
 					return "login successful";
 				}
 				else{
