@@ -21,26 +21,24 @@ class User {
 
 	static async login(Username, Password) {
 		return users.findOne({
-			'username':Username
-		}).then(async user=>{
+			"username":Username
+		}).then(async user => {
 			// TODO: Check if username exists
-			if(user){
+			if(user) {
 				// TODO: Validate password
 				const match = await bcrypt.compare(password, user.password); 
-				if(match){
+				if(match) {
 					return "login successful";
 				}
-				else{
+				else {
 					return "invalid password";
 				}	
 			}
-			else{
+			else {
 				return "invalid username";
 			}
-			
 		})
 		// TODO: Return user object
-
 	}
 }
 
