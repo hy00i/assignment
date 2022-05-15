@@ -19,9 +19,9 @@ class User {
 		}
 	}
 
-	static async login(Username, Password) {
+	static async login(username, password) {
 		return users.findOne({
-			"username":Username
+			"username":username
 		}).then(async user => {
 			// TODO: Check if username exists
 			if(user) {
