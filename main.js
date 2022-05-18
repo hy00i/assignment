@@ -32,22 +32,23 @@ app.post('/login', async (req, res) => {
 	console.log(req.body);
 
 	const user = await User.login(req.body.username, req.body.password);
-
-	// res.json({
-	// 	_id: '123456',
-	// 	name: 'test',
-	// 	age: 18,
-	// })
+        if (user == "invalid password" || user == "invalid username")
+	{
+            return res.status(404).send("Fail to login")
+        }
+        else{
+            return res.status(200).send("login successful")
+        }
 })
 
 app.post('/register', async (req, res) => {
 	console.log(req.body);
 
-	// res.json({
-	// 	_id: '123456',
-	// 	name: 'test',
-	// 	age: 18,
-	// })
+	const user = await User.register(req.body.username, req.body.password)
+        if (user == "the Username is already exist"){
+            return res.status(404).send("The Username is already exist ")
+        }
+        return res.status(200).send("user created")
 })
 
 app.listen(port, () => {
