@@ -28,6 +28,48 @@ app.get('/hello', (req, res) => {
 	res.send('Hello BENR2423')
 })
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         username: 
+ *           type: string
+ *         email: 
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     description: User Login
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: 
+ *             type: object
+ *             properties:
+ *               username: 
+ *                 type: string
+ *               password: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Invalid username or password
+ */
+
 app.post('/login', async (req, res) => {
 	console.log(req.body);
 
@@ -49,6 +91,25 @@ app.post('/register', async (req, res) => {
             return res.status(404).send("The Username is already exist ")
         }
         return res.status(200).send("user created")
+})
+
+/**
+ * @swagger
+ * /visitor/{id}:
+ *   get:
+ *     description: Get visitor by id
+ *     parameters:
+ *       - in: path
+ *         name: id 
+ *         schema: 
+ *           type: string
+ *         required: true
+ *         description: visitor id
+ */
+ app.get('/visitor/:id', async (req, res) => {
+	console.log(req.params.id);
+
+	res.status(200).json({})
 })
 
 app.listen(port, () => {
