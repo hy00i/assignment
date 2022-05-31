@@ -106,6 +106,7 @@ app.post('/register', async (req, res) => {
  *         required: true
  *         description: visitor id
  */
+
  app.get('/visitor/:id', async (req, res) => {
 	console.log(req.params.id);
 
