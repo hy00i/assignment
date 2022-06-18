@@ -34,7 +34,7 @@ describe('Express Route Test', function () {
 	it('register', async () => {
 		return request
 			.post('/register')
-			.send({username: 'kuan',password:"345fr"})
+			.send({username: 'thibe',password:"frdee"})
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
 				expect(response.text).toEqual("user created");
@@ -47,8 +47,7 @@ describe('Express Route Test', function () {
 			.send({username: 'Phanida',password:"12345"})
 			.expect('Content-Type', /text/)
 			.expect(404).then(response => {
-				expect(response.text).toEqual("The Username is already exist ");
+				expect(response.text).toEqual("Duplicate username");
 	   		});
 	});
 });
-
