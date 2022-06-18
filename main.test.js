@@ -52,13 +52,3 @@ describe('Express Route Test', function () {
 	});
 });
 
-	it('register failed', async () => {
-		return request
-		.post('/register')
-		.send({username: 'Phanida',password:"12345"})
-		.expect('Content-Type', /text/)
-		.expect(404).then(response => {
-			expect(response.text).toEqual("The Username is already exist");
-	   });
-	});
-});
