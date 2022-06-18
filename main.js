@@ -1,5 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 const User = require("./user");
+const Visitor = require("./visitor");
 
 MongoClient.connect(
 	// TODO: Connection 
@@ -11,6 +12,7 @@ MongoClient.connect(
 }).then(async client => {
 	console.log('Connected to MongoDB');
 	User.injectDB(client);
+	Visitor.injectDB(client);
 })
 
 const express = require('express')
@@ -79,7 +81,7 @@ app.post('/login', async (req, res) => {
             return res.status(404).send("Fail to login")
         }
         else{
-            return res.status(200).send("login successful")
+            return res.status(200).json(user)
         }
 })
 
@@ -87,7 +89,7 @@ app.post('/register', async (req, res) => {
 	console.log(req.body);
 
 	const user = await User.register(req.body.username, req.body.password)
-        if (user == "the Username is already exist"){
+        if (user == false){
             return res.status(404).send("The Username is already exist ")
         }
         return res.status(200).send("user created")
