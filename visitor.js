@@ -7,39 +7,59 @@ class Visitor {
 	}
 
 	static async getVisitor(visitorId) {
-        // TODO - READ Visitors from DB
 		return await visitors.findOne({ _id: new ObjectId(visitorId) })
-	}
-    
-	static async createVisitor(name, department, date, ) {
+    }
+
+	static async createVisitor(name, department, date ) {
         // TODO - CREATE Visitors in DB
-        await visitors.insertOne({
-            "name":name,
-            "department":department,
-            "date":date,
-        })
-
-	}
-
-	static async updateVisitor(_id, department) {
-        // TODO - UPDATE Visitors in DB
-        await visitors.updateOne(
-            {_id:ObjectId},
-            {
-                $set:{
-                    "department":department
+        return visitors.findOne({
+            'name':name
+        }).then(async visitor=>{
+            if(visitor){
+                if(visitor.name==name){
+                    return "the name is already axist";
                 }
+            }else{
+            await visitors.insertOne({
+                "name":name,
+                "department":department,
+                "date":date,
+            })
+            return "visitor created";    
             }
-        )
-	}
-
-	static async deleteVisitor(id) {
-        // TODO - DELETE Visitors in DB
-        await visitors.deleteOne({
-            "_id":ObjectId
         })
-	}
-	
+    }
+	static async updateVisitor(visitorId, department) {
+        // TODO - UPDATE Visitors in DB
+        return visitors.findOne({
+             _id: new ObjectId(visitorId) 
+        }).then(async visitor =>{
+            if(visitor._id=visitorId){
+                await visitors.updateOne({
+                    "department":department,
+                })
+                return "visitor info updated";    
+            }else{
+                return "invalid id";
+            }
+        })
+    }
+
+	static async deleteVisitor(visitorId) {
+        // TODO - DELETE Visitors in DB
+        return visitors.findOne({
+            _id: new ObjectId(visitorId)
+        }).then(async visitor =>{
+            if(visitor._id=visitorId){
+                await visitors.deleteOne({
+                    _id: new ObjectId(visitorId)
+                })
+                return "Visitor id is succesfully deleted";    
+            }else{
+                return "invalid id";
+            }
+        })    
+	}	
 }
 
 module.exports = Visitor;
