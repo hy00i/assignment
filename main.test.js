@@ -15,7 +15,7 @@ describe('Express Route Test', function () {
 		return request
 			.post('/login')
 			.send({username: 'Phanida', password: "86790" })
-			.expect('Content-Type', /text/)
+			.expect('Content-Type', /json/)
 			.expect(200).then(response => {
 				expect(response.body).toEqual("login successful")
 			});
@@ -23,23 +23,34 @@ describe('Express Route Test', function () {
 
 	it('login failed', async () => {
 		return request
-		.post('/login')
-		.send({username: 'Phanida',password:"12345"})
-		.expect('Content-Type', /text/)
-		.expect(404).then(response => {
-			expect(response.text).toEqual("Fail to login");
-		});
+			.post('/login')
+			.send({username: 'Phanida',password:"12345"})
+			.expect('Content-Type', /text/)
+			.expect(404).then(response => {
+				expect(response.text).toEqual("Fail to login")	
+			});
 	});
 
 	it('register', async () => {
 		return request
-		.post('/register')
-		.send({username: 'Marrybrown',password:"mary9"})
-		.expect('Content-Type', /text/)
-		.expect(404).then(response => {
-			expect(response.text).toEqual("user created");
-	    });
+			.post('/register')
+			.send({username: 'kuan',password:"345fr"})
+			.expect('Content-Type', /text/)
+			.expect(200).then(response => {
+				expect(response.text).toEqual("user created");
+	   		});
 	});
+
+	it('register failed', async () => {
+		return request
+			.post('/register')
+			.send({username: 'Phanida',password:"12345"})
+			.expect('Content-Type', /text/)
+			.expect(404).then(response => {
+				expect(response.text).toEqual("The Username is already exist ");
+	   		});
+	});
+});
 
 	it('register failed', async () => {
 		return request
