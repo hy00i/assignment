@@ -72,27 +72,53 @@ app.get('/hello', (req, res) => {
  *         description: Invalid username or password
  */
 
-app.post('/login', async (req, res) => {
-	console.log(req.body);
-
-	const user = await User.login(req.body.username, req.body.password);
-        if (user == "invalid password" || user == "invalid username")
-	{
-            return res.status(404).send("Fail to login")
-        }
-        else{
-            return res.status(200).json(user)
-        }
+ app.post('/adminlogin',async (req, res) => {
+	const admin = await User.login(req.body.username, req.body.password);
+	if (admin != null) {
+		if (admin.role == "admin") {
+		// res.status(200).json({ })
+		} else {
+			// res.status(403)( { } );
+		}
+	} else {
+		// res.status(401)( { } );
+	}
 })
 
-app.post('/register', async (req, res) => {
-	console.log(req.body);
+app.post('/userlogin',async (req, res) => {
+	const user = await User.login(req.body.username, req.body.password);
+	if (user != null) {
+		if (user.role == "user") {
+		// res.status(200).json({ })
+		} else {
+			// res.status(403).json( { } );
+		}
+	} else {
+		// res.status(401).json( { } );
+	}
+})
 
-	const user = await User.register(req.body.username, req.body.password)
-        if (user =="the Username is already exist"){
-            return res.status(404).send("Duplicate username")
-        }
-        return res.status(200).send("user created")
+ app.post('/securitylogin',async (req, res) => {
+	const security = await User.login(req.body.username, req.body.password);
+	if (security != null) {
+		if (security.role == "security") {
+		// res.status(200).json({ })
+		} else {
+			// res.status(403).json( { } );
+		}
+	} else {
+		// res.status(401).json( { } );
+	}
+})
+
+ app.get('/visitors/:id', async (req, res) => {
+	const {id} = req.params;
+	const visitor = await Visitor.getVisitor(id);
+	if (visitor != null ) {
+		// res.status(200).json({ })
+	} else {
+		// res.status(404).send( );
+	}
 })
 
 /**

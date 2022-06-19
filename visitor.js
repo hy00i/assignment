@@ -3,10 +3,10 @@ const ObjectId = require("mongodb").ObjectId;
 let visitors;
 class Visitor {
 	static async injectDB(conn) {
-		visitors = await conn.db("Visitor-management-System").collection("visitors")
+		visitors = await conn.db("vms").collection("visitors")
 	}
 
-	static async getVisitor(visitorId) {
+	static async getVisitor(id) {
         let visitor = await visitors.findOne({ "id": id });
         if(visitor) {
             return visitors.find({"id": id}).toArray();
@@ -14,9 +14,9 @@ class Visitor {
         else {
             return null
         }
-    }
+	}
 
-	static async createVisitor(name, department, date ) {
+	static async createVisitor(name, id, phone, inputby, date, checkin) {
 		let visitor = await visitors.findOne({ "id": id });
 		if (visitor) {
 			return null;
@@ -26,7 +26,7 @@ class Visitor {
 		return visitor = await visitors.findOne({ "id": id });
 	}
 
-	static async updateVisitor(visitorId, department) {
+	static async updateVisitor(id, checkout, inputby) {
 		let visitor = await visitors.findOne({ "id": id });
 		if (visitor.inputby == inputby) {
 			await visitors.updateOne({"id": id }, { $set: { "checkout": checkout } });
@@ -36,7 +36,7 @@ class Visitor {
 		}
 	}
 
-	static async deleteVisitor(visitorId) {
+	static async deleteVisitor(id, inputby) {
 		let visitor = await visitors.findOne({ "id": id });
 		if (visitor.inputby == inputby) {
 			await visitors.deleteOne({ "id": id });
