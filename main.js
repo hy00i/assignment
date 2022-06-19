@@ -78,12 +78,12 @@ app.get('/hello', (req, res) => {
 	const admin = await User.login(req.body.username, req.body.password);
 	if (admin != null) {
 		if (admin.role == "admin") {
-		// res.status(200).json({ })
+			return res.status(200).json({ })
 		} else {
-			// res.status(403)( { } );
+			return res.status(403)( { } );
 		}
 	} else {
-		// res.status(401)( { } );
+			return res.status(401)( { } );
 	}
 })
 
@@ -91,12 +91,12 @@ app.post('/userlogin',async (req, res) => {
 	const user = await User.login(req.body.username, req.body.password);
 	if (user != null) {
 		if (user.role == "user") {
-		// res.status(200).json({ })
+			return res.status(200).json({ })
 		} else {
-			// res.status(403).json( { } );
+			return res.status(403).json( { } );
 		}
 	} else {
-		// res.status(401).json( { } );
+			return res.status(401).json( { } );
 	}
 })
 
@@ -104,12 +104,12 @@ app.post('/userlogin',async (req, res) => {
 	const security = await User.login(req.body.username, req.body.password);
 	if (security != null) {
 		if (security.role == "security") {
-		// res.status(200).json({ })
+			return res.status(200).json({ })
 		} else {
-			// res.status(403).json( { } );
+			return res.status(403).json( { } );
 		}
 	} else {
-		// res.status(401).json( { } );
+			return res.status(401).json( { } );
 	}
 })
 
@@ -117,9 +117,9 @@ app.post('/userlogin',async (req, res) => {
 	const {id} = req.params;
 	const visitor = await Visitor.getVisitor(id);
 	if (visitor != null ) {
-		// res.status(200).json({ })
+		return res.status(200).json({ })
 	} else {
-		// res.status(404).send( );
+		return res.status(404).send( );
 	}
 })
 
