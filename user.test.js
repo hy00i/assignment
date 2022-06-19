@@ -16,27 +16,53 @@ describe("User Account", () => {
 	})
 
 	test("New user registration", async () => {
-		const res = await User.register("Potato","mk123")
-		expect(res).toBe("user created")
+		const res = await User.register("test", "123abc","test@gmail.com", "user");
+		expect(res.username).toBe("test");
+		expect(res.email).toBe("test@gmail.com");
+		expect(res.role).toBe("user");
 	})
 
 	test("Duplicate username", async () => {
-		const res = await User.register("Phanida","ph872")
-		expect(res).toBe("the Username is already exist")
+		const res = await User.register("admin", "123abc","admin@gmail.com", "admin");
+		expect(res).toBe(null)
 	})
 
 	test("User login invalid username", async () => {
-		const res = await User.login("Diena","86790")
-		expect(res).toBe("invalid username")
+		const res = await User.login("useless name", "123abc")
+		expect(res).toBe(null)
 	})
 
 	test("User login invalid password", async () => {
-		const res = await User.login("Phanida","8679")
-		expect(res).toBe("invalid password")
+		const res = await User.login("admin", "wrong password")
+		expect(res).toBe(null)
 	})
 
 	test("User login successfully", async () => {
-		const res = await User.login("Phanida","86790")
-		expect(res).toBe("login successful")
+		const res = await User.login("admin", "123abc")
+		expect(res.username).toBe("admin")
+		expect(res.email).toBe("admin@gmail.com"),
+		expect(res.role).toBe("admin")
+	})
+
+	// QA need to implement this part of the user.test.js
+
+	test("User update Successfully", async () => {
+		const res = await User.update();
+	})
+
+	test("User update Failed", async () => {
+		const res = await User.update();
+	})
+
+	test("User delete Successfully", async () => {
+		const res = await User.delete();
+	})
+
+	test("User delete Failed", async () => {
+		const res = await User.delete();
+	})
+
+	test("Get all users", async () => {
+		const res = await User.getAllUsers();
 	})
 });
