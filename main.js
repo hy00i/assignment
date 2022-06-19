@@ -80,10 +80,10 @@ app.post('/adminlogin',async (req, res) => {
 		if (admin.role == "admin") {
 			return res.status(200).json(admin)
 		} else {
-			return res.status(403)( { "Access denied"} );
+			return res.status(403)(  "Access denied" );
 		}
 	} else {
-			return res.status(401)( { "Fail to login"} );
+			return res.status(401)(  "Fail to login" );
 	}
 })
 
@@ -93,10 +93,10 @@ app.post('/userlogin',async (req, res) => {
 		if (user.role == "user") {
 			return res.status(200).json(user)
 		} else {
-			return res.status(403).json( { "Access denied"} );
+			return res.status(403).json( "Access denied" );
 		}
 	} else {
-			return res.status(401).json( {"Fail to login" } );
+			return res.status(401).json( "Fail to login"  );
 	}
 })
 
@@ -106,10 +106,10 @@ app.post('/userlogin',async (req, res) => {
 		if (security.role == "security") {
 			return res.status(200).json(security)
 		} else {
-			return res.status(403).json( {  "Access denied"} );
+			return res.status(403).json(   "Access denied" );
 		}
 	} else {
-			return res.status(401).json( {"Fail to login" } );
+			return res.status(401).json( "Fail to login"  );
 	}
 })
 
@@ -146,4 +146,3 @@ app.get('/visitor/:id', async (req, res) => {
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
 })
-
