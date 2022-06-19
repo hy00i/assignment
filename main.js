@@ -1,6 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const User = require("./user");
 const Visitor = require("./visitor");
+const Departmental = require("./department");
 
 MongoClient.connect(
 	// TODO: Connection 
@@ -13,6 +14,7 @@ MongoClient.connect(
 	console.log('Connected to MongoDB');
 	User.injectDB(client);
 	Visitor.injectDB(client);
+	Departmental.injectDB(client);
 })
 
 const express = require('express')
@@ -135,7 +137,7 @@ app.post('/userlogin',async (req, res) => {
  *         description: visitor id
  */
 
- app.get('/visitor/:id', async (req, res) => {
+app.get('/visitor/:id', async (req, res) => {
 	console.log(req.params.id);
 
 	res.status(200).json({})
