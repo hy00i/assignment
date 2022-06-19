@@ -5,7 +5,8 @@ describe("Department Info Management", () => {
 	let client;
 	beforeAll(async () => {
 		client = await MongoClient.connect(
-			"mongodb+srv://m001-student:m001-mongodb-basics@sandbox.ljfmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+			"mongodb+srv://m001-student:m001-mongodb-basics@sandbox.te4xf.mongodb.net/Sandbox?retryWrites=true&w=majority",
+             //"my-mongodb+srv-connection-string",
 			{ useNewUrlParser: true },
 		);
 		Departmental.injectDB(client);
@@ -16,48 +17,51 @@ describe("Department Info Management", () => {
 	})
 
 	test("Create department Successfully", async () => {
-		const res = await Departmental.createdepartment("30","Neurology","C23");
-        expect(res.code).toBe("30");
-		expect(res.department).toBe("Neurology");
-		expect(res.floor).toBe("C23");
+		const res = await Departmental.createdepartment("test","testing","A24");
+        expect (res.code).toBe("test");
+        expect (res.department).toBe("testing");
+        expect (res.floor).toBe("A24");
 	})
 
     test("Create department Failed", async () => {
-        const res = await Departmental.createdepartment("none","none","C23");
-        expect(res).toBe(null);
+        const res = await Departmental.createdepartment("test","testing","A24");
+        expect (res).toBe(null);
     })
 
     test("Insert id to department Successfully", async () => {
-        const res = await Departmental.updatedepartmentid("10", "210220-01-8641");
-        expect(res.code).toBe("10");
-        expect(res.id).toBe("210220-01-8641");
-
+        const res = await Departmental.updatedepartmentid("test", "000000-00-0000");
+        expect (res.code).toBe("test");
+        expect (res.department).toBe("testing");
+        expect (res.floor).toBe("A24");
+        expect (res.visitors[0]).toBe("000000-00-0000");
     })
 
     test("Insert id to department Failed", async () => {
-        const res = await Departmental.updatedepartmentid("none", "210220-01-8641");
-        expect(res).toBe(null);
+        const res = await Departmental.updatedepartmentid("none", "000000-00-0000");
+        expect (res).toBe(null);
     })
 
     test("Remove id from department Successfully", async () => {
-        const res = await Departmental.deletedepartmentid("10", "210220-01-8641");
-        expect(res.code).toBe("10");
-        expect(res.id).toBe("210220-01-8641");
+        const res = await Departmental.deletedepartmentid("test", "000000-00-0000");
+        expect (res.code).toBe("test");
+        expect (res.department).toBe("testing");
+        expect (res.floor).toBe("A24");
+        expect (res.visitors.length).toBe(0);
     })
 
     test("Remove id from department Failed", async () => {
-        const res = await Departmental.deletedepartmentid("none", "210220-01-8641");
-        expect(res).toBe(null);
+        const res = await Departmental.deletedepartmentid("none", "000000-00-0000");
+        expect (res).toBe(null);
     })
 
     test("Delete department Successfully", async () => {
-        const res = await Departmental.deletedepartment("01");
-        expect(res).toBe(true);
+        const res = await Departmental.deletedepartment("test");
+        expect (res).toBe(true);
     })
 
     test("Delete department Failed", async () => {
         const res = await Departmental.deletedepartment("test");
-        expect(res).toBe(null);
+        expect (res).toBe(null);
     })
 
 }); 

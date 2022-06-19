@@ -1,10 +1,19 @@
-let users;
+const bcrypt = require('bcrypt');
 
+let users;
 class User {
 	static async injectDB(conn) {
-		users = await conn.db("my-database-name").collection("users")
+		users = await conn.db("vms").collection("users")
 	}
-
+	/**
+	 * @remarks
+	 * This method is not implemented yet. To register a new user, you need to call this method.
+	 * 
+	 * @param {*} username 
+	 * @param {*} password 
+	 * @param {*} phone 
+	 */
+	
 	static async register(username, password, email, role) {
 		// TODO: Check if username exists
 	    let user = await users.findOne({ "username": username });
@@ -63,7 +72,7 @@ class User {
             return null
         }
 	}
-	
+
 }
 
 module.exports = User;

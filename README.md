@@ -26,4 +26,4 @@ The diagram below show the Entity Relationship Diagram that contains the Databas
 * The Department collection has a key field named visitors will contained the id of the Visitor collection.
 
 ## Heroku link that Host the RESTful API on the cloud
-https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://tranquil-beach-83069.herokuapp.com/api-docs/

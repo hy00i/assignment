@@ -5,7 +5,8 @@ describe("Visitor Info Management", () => {
 	let client;
 	beforeAll(async () => {
 		client = await MongoClient.connect(
-			"mongodb+srv://m001-student:m001-mongodb-basics@sandbox.ljfmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+			"mongodb+srv://m001-student:m001-mongodb-basics@sandbox.te4xf.mongodb.net/Sandbox?retryWrites=true&w=majority",
+             //"my-mongodb+srv-connection-string",
 			{ useNewUrlParser: true },
 		);
 		Visitor.injectDB(client);
@@ -73,12 +74,11 @@ describe("Visitor Info Management", () => {
 
 	test("Get visitors by user", async () => {
 		const res = await Visitor.UsergetVisitors("ooi");
-		expect(res.length).toBe(3);
+		expect(res.length).toBe(4);
 	})
 
 	test("Get all visitors", async () => {
 		const res = await Visitor.getAllVisitors();
-		expect(res.length).toBe(6);
+		expect(res.length).toBe(7);
 	})
-	
-});
+}); 
