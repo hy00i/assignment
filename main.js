@@ -74,16 +74,16 @@ app.get('/hello', (req, res) => {
  *         description: Invalid username or password
  */
 
- app.post('/adminlogin',async (req, res) => {
+app.post('/adminlogin',async (req, res) => {
 	const admin = await User.login(req.body.username, req.body.password);
 	if (admin != null) {
 		if (admin.role == "admin") {
-			return res.status(200).json({ })
+			return res.status(200).json(admin)
 		} else {
-			return res.status(403)( { } );
+			return res.status(403)( { "Access denied"} );
 		}
 	} else {
-			return res.status(401)( { } );
+			return res.status(401)( { "Fail to login"} );
 	}
 })
 
@@ -91,12 +91,12 @@ app.post('/userlogin',async (req, res) => {
 	const user = await User.login(req.body.username, req.body.password);
 	if (user != null) {
 		if (user.role == "user") {
-			return res.status(200).json({ })
+			return res.status(200).json(user)
 		} else {
-			return res.status(403).json( { } );
+			return res.status(403).json( { "Access denied"} );
 		}
 	} else {
-			return res.status(401).json( { } );
+			return res.status(401).json( {"Fail to login" } );
 	}
 })
 
@@ -104,12 +104,12 @@ app.post('/userlogin',async (req, res) => {
 	const security = await User.login(req.body.username, req.body.password);
 	if (security != null) {
 		if (security.role == "security") {
-			return res.status(200).json({ })
+			return res.status(200).json(security)
 		} else {
-			return res.status(403).json( { } );
+			return res.status(403).json( {  "Access denied"} );
 		}
 	} else {
-			return res.status(401).json( { } );
+			return res.status(401).json( {"Fail to login" } );
 	}
 })
 
@@ -117,9 +117,9 @@ app.post('/userlogin',async (req, res) => {
 	const {id} = req.params;
 	const visitor = await Visitor.getVisitor(id);
 	if (visitor != null ) {
-		return res.status(200).json({ })
+		return res.status(200).json(id)
 	} else {
-		return res.status(404).send( );
+		return res.status(404).send("Id is already exist");
 	}
 })
 
@@ -146,3 +146,4 @@ app.get('/visitor/:id', async (req, res) => {
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
 })
+
