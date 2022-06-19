@@ -47,22 +47,29 @@ describe("User Account", () => {
 	// QA need to implement this part of the user.test.js
 
 	test("User update Successfully", async () => {
-		const res = await User.update();
+		const res = await User.update("Lim","dtb@gmail.com","admin");
+		expect(res.username).toBe("Lim")
+		expect(res.email).toBe("dtb@gmail.com");
+		expect(res.role).toBe("admin")
 	})
 
 	test("User update Failed", async () => {
-		const res = await User.update();
+		const res = await User.update("Aer");
+		expect(res).toBe(null);
 	})
 
 	test("User delete Successfully", async () => {
-		const res = await User.delete();
+		const res = await User.delete("Sam");
+		expect(res).toBe(true);
 	})
 
 	test("User delete Failed", async () => {
-		const res = await User.delete();
+		const res = await User.delete("Aer");
+		expect(res).toBe(null)
 	})
 
 	test("Get all users", async () => {
 		const res = await User.getAllUsers();
+		expect(res.length).toBe(7);
 	})
 });
